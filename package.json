@@ -30,6 +30,11 @@
     "webpack-dev-middleware": "^4.0.2",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-manifest-plugin": "^2.2.0",
+    "workbox-cacheable-response": "^6.0.2",
+    "workbox-expiration": "^6.0.2",
+    "workbox-precaching": "^6.0.2",
+    "workbox-routing": "^6.0.2",
+    "workbox-strategies": "^6.0.2",
     "workbox-webpack-plugin": "^6.0.2",
     "xml-loader": "^1.2.1"
   },

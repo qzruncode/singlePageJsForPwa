@@ -3,6 +3,7 @@ const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 // const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const webpack = require("webpack");
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 const publicPath = "/";
 module.exports = {
@@ -65,5 +66,8 @@ module.exports = {
         new CleanWebpackPlugin(), // 清空dist目录
         new webpack.HotModuleReplacementPlugin(), // 开启HMR，生产环境不能使用此配置，否则会产生没必要的文件名更新
         // new WebpackManifestPlugin(), // 生成原始文件和生成文件的映射清单
+        new InjectManifest({ // 生成pwa文件
+            swSrc: './src/sw.js',
+        })
     ],
 };
