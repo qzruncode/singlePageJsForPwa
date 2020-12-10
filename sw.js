@@ -4,13 +4,15 @@ import { NetworkFirst, StaleWhileRevalidate, CacheFirst } from "workbox-strategi
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { ExpirationPlugin } from "workbox-expiration";
 
-
 precacheAndRoute(self.__WB_MANIFEST); // 传入 workbox-webpack-plugin 生成的 precache manifest 清单文件列表，用于缓存
 
 // 使用 NetworkFirst模式 来处理导航请求(html)
 // NetworkFirst：首先请求网络资源，如果收到响应将其保存到缓存中；如果网络请求失败，从缓存中取。
 registerRoute(
-    ({ request }) => request.mode === "navigate", // 导航请求
+    ({ request }) => {
+        console.log(request);
+        return request.mode === "navigate";
+    }, // 导航请求
     new NetworkFirst({
         cacheName: "pages", // 将文件缓存到名为 pages 的cache中
         plugins: [
@@ -24,7 +26,10 @@ registerRoute(
 // 使用 StaleWhileRevalidate模式 来处理css，js，web worker文件
 // StaleWhileRevalidate：如果缓存中有就使用缓存的资源并且在后台默默的更新缓存中的文件，如果缓存中没有就用网络资源。缺点是会占用带宽
 registerRoute(
-    ({ request }) => request.destination === "style" || request.destination === "script" || request.destination === "worker",
+    ({ request }) => {
+        console.log(request);
+        return request.destination === "style" || request.destination === "script" || request.destination === "worker";
+    },
     new StaleWhileRevalidate({
         cacheName: "assets", // 将文件缓存到名为 assets 的cache中
         plugins: [

@@ -1,3 +1,1 @@
-test
-
-参考 https://developers.google.com/web/tools/workbox/guides/get-started
+运用 webpack5.9.0 配置的 js 开发环境，适用于单页面电脑端开发

@@ -1,7 +1,12 @@
-import _ from "lodash";
-import "./index.css";
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
+// import _ from 'lodash';
+import "./index.less";
 import { test } from "./thrid";
 test();
+
+console.log(process.env.DB_HOST);
 
 // 动态导入，webpack会自动分割代码
 // import('./thrid').then(thrid => {
@@ -13,15 +18,16 @@ test();
 // preload 告诉浏览器此资源在当前当行中用到。和父块并行加载，立即下载，此块的代码现在就要用到
 // import(/* webpackPrefetch: true */ './path/to/LoginModal.js');
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/sw.js")
-      .then((registration) => {
-        console.log("SW registered: ", registration);
-      })
-      .catch((registrationError) => {
-        console.log("SW registration failed: ", registrationError);
-      });
-  });
+if ("serviceWorker" in navigator && process.env.NODE_ENV === 'production') {
+    window.addEventListener("load", () => {
+        navigator
+            .serviceWorker
+            .register("/sw.js")
+            .then((registration) => {
+                console.log("SW registered: ", registration);
+            })
+            .catch((registrationError) => {
+                console.log("SW registration failed: ", registrationError);
+            });
+    });
 }
